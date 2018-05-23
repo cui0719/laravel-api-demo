@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class BaseModel extends Model
 {
@@ -30,24 +29,21 @@ class BaseModel extends Model
     }
 
     /**
-     * 格式化时间
-     *
-     * @param $time 时间
-     * return @string
+     * Format time
+     * @param $time
+     * @return false|string
      */
     public static function formatDate($time)
     {
         if (!is_numeric($time)) {
             $time = strtotime($time);
         }
-        // return date('Y-m-d', $time);
-        //计算时长
+
         $fee = time() - $time;
         if ($fee <= 0) {
             $str = '刚刚';
         } else {
             if (date("Y", $time) != date("Y")) {
-                // $str = date("Y-m-d H:i", $time);
                 $str = date("Y-m-d", $time);
             } else {
                 $day = floor(($fee / 86400));
